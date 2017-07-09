@@ -71,3 +71,11 @@
 </div>
 
 
+<script>
+  $(document).ready(function(){
+    $("#deposit_amount").bind("input", function(){
+      //alert('typing');
+      $('.btn-deposit').html('Deposit Now - $' + $("#deposit_amount").val());
+    });
+  })
+</script>
