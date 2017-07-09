@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   	get "delete"
   end
 
+  get 'payment_success' => 'charges#payment_success'
+
   resources :charges, only: [:create]
 
 end

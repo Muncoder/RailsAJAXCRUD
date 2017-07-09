@@ -21,7 +21,8 @@ class ChargesController < ApplicationController
 	  #require 'pry', binding.pry
 
 	  account.update_attribute(:balance_amount, updated_amount)
-	  redirect_to 
+	  #redirect_to payment_success_path, format: 'js'
+	  #redirect_to payment_success_path, remote: true
 
 	rescue Stripe::CardError => e
 	  flash[:error] = e.message
