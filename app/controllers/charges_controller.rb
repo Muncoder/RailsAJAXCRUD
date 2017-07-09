@@ -15,6 +15,14 @@ class ChargesController < ApplicationController
 	    :currency    => 'usd'
 	  )
 
+	  account = Account.find(params[:account_id])
+
+	  updated_amount = (account.balance_amount).to_i + ((params[:deposit_amount]).to_i / 100)
+	  #require 'pry', binding.pry
+
+	  account.update_attribute(:balance_amount, updated_amount)
+	  redirect_to 
+
 	rescue Stripe::CardError => e
 	  flash[:error] = e.message
 	  redirect_to new_charge_path

@@ -44,7 +44,9 @@
               var amount1 = $('#deposit_amount').val();
               var deposit_amount = Math.round(amount1*100);
               $('#deposit_amount').val(deposit_amount);
-              $('#account_name').val("<%=@account.name %>");
+              $('#account_name').val("<%= @account.name %>");
+              $('#account_id').val("<%= @account.id %>");
+
               alert(deposit_amount);
               handler.open({
                 name: "<%= @account.name %>",
