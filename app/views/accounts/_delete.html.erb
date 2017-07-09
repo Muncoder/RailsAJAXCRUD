@@ -1,0 +1,12 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <h1>Delete Account</h1>
+    <div class="modal-body">
+      Do you like to delete Account: <div class="well"><%= @account.name %></div> 
+    </div>
+    <div class="modal-footer">
+      <%= link_to 'Delete this Account', account_path(@account), method: :delete, remote: true, class: "btn btn-xs btn-danger" %>
+      <%= link_to "Please dont", "#", class: "btn btn-default", data: { dismiss: "modal" } %>
+    </div>
+  </div>
+</div>

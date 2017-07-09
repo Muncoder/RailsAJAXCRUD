@@ -1,0 +1,10 @@
+<% @accounts.each do |account| %>
+  <tr>
+    <td><%= account.name %></td>
+    <td>
+    	<%= link_to 'Show', account_path(account), remote: true, class: "btn btn-primary btn-xs" %>
+		<%= link_to 'Edit', edit_account_path(account), remote: true, class: "btn btn-info btn-xs" %>
+		<%= link_to 'Delete', account_delete_path(account), remote: true, class: "btn btn-danger btn-xs" %>
+    </td>
+  </tr>
+<% end %>
