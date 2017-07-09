@@ -1,0 +1,73 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3>Deposit Amount</h3>
+    </div>
+    <div class="modal-body">
+      <p><%= @account.name %> </p>
+      <div class="well">Current Balance : <%= @account.balance_amount %></div>
+
+      <%= form_tag charges_path, id: 'chargeForm' do %>
+        <article>
+          <% if flash[:error].present? %>
+            <div id="error_explanation">
+              <p><%= flash[:error] %></p>
+            </div>
+          <% end %>
+          <label class="amount">
+            <span>Amount to deposit</span>
+          </label>
+        </article>
+        <%= text_field_tag :deposit_amount, params[:deposit_amount], id: "deposit_amount" %>
+
+        <script src="https://checkout.stripe.com/checkout.js"> </script>
+        <%= hidden_field_tag 'stripeToken' %>
+        <%= hidden_field_tag 'stripeEmail' %>
+        <%= hidden_field_tag 'account_id', { id: "account_id" } %>
+        <%= hidden_field_tag 'account_name', { id: "account_name" } %>
+
+        <button type="button" id="btn-deposit" class="btn btn-primary btn-lg btn-deposit">
+          Deposit Now
+        </button>
+
+        <script type="text/javascript">
+            var handler = StripeCheckout.configure({
+              key: '<%= Rails.configuration.stripe[:publishable_key] %>',
+              token: function(token, arg) {
+                document.getElementById("stripeToken").value = token.id;
+                document.getElementById("stripeEmail").value = token.email;
+                document.getElementById("chargeForm").submit();
+              }
+            });
+
+            document.getElementById("btn-deposit").addEventListener('click', function(e){
+              var amount1 = $('#deposit_amount').val();
+              var deposit_amount = Math.round(amount1*100);
+              $('#deposit_amount').val(deposit_amount);
+              $('#account_name').val("<%=@account.name %>");
+              alert(deposit_amount);
+              handler.open({
+                name: "<%= @account.name %>",
+                description: "<%= @account.name %>",
+                amount: deposit_amount
+              });
+              e.preventDefault();
+            });
+
+        </script>
+
+     <% end %>
+
+
+
+
+
+
+    </div>
+    <div class="modal-footer">
+      <%= link_to "Close", "#", class: "btn btn-default", data: {dismiss: "modal"} %>
+    </div>
+  </div>
+</div>
+
+
