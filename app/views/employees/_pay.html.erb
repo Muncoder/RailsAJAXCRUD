@@ -1,0 +1,51 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title">Contribute to Employee: <%= @employee.name.upcase %></h4>
+      <p>Present salary: <%= @employee.salary %></p>
+    </div>
+    <div class="modal-body">
+      <p class="text-center">Increase Salary By</p>
+      <br>
+      <%= form_tag '/process_payment' do %>
+        <button id="btn-minus">-</button>
+        <%= text_field_tag :amount %>
+        <button id="btn-plus">+</button>
+
+      <% end %>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+
+
+<script>
+  $(document).ready(function(){
+    $('#amount').val(0);
+
+    $('#btn-minus').click(function(e){
+      e.preventDefault();
+      //alert('Minus button clicked');
+      var amount = $('#amount').val();
+      amount = parseInt(amount);
+      if(amount > 0)
+      {
+        amount = amount-1;
+      }
+      $('#amount').val(amount);
+    });
+
+    $('#btn-plus').click(function(e){
+      e.preventDefault();
+      var amount = $('#amount').val();
+      if(amount >= 0)
+      {
+        amount = parseInt(amount)+1;
+      }
+      $('#amount').val(amount);
+    });
+  });
+</script>

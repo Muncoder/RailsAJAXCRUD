@@ -1,0 +1,18 @@
+<div class="container">
+	<h1>Employee List</h1>
+	<hr>
+	<ul>
+		<% @employees.each do |employee| %>
+			<li>
+				<%=  employee.name %> 
+				|
+				<%=  employee.salary %>
+			--> <%= link_to 'Pay Salary', employee_pay_path(employee), remote: true, class: "btn btn-info" %>
+			</li>
+			<li></li>
+		<% end %>
+		
+	</ul>
+</div>
+
+<div id="payment-modal" class="modal fade"></div>

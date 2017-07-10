@@ -1,12 +1,20 @@
 Rails.application.routes.draw do
 
+  root 'employees#index'
+
   resources :accounts do
   	get 'delete'
   	get 'remove'
   	get 'deposit'
   end
+  
   resources :categories
-  resources :employees
+
+  resources :employees do
+    get 'pay'
+  end
+  get 'process_payment' => 'employees#process_payment'
+
   resources :products do
   	get "delete"
   end
