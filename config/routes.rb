@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :starships
   root 'employees#index'
 
   resources :accounts do
