@@ -1,0 +1,16 @@
+<h1>New Employee</h1>
+<hr>
+<%= form_for @person do |f| %>
+	
+	<div class="form-group">
+		<%= f.label :name %>
+		<%= f.text_field :name, class: "form-group" %>
+	</div>
+
+	<div class="form-group">
+		<%= f.label :country_id %>
+		<%= f.collection_select :country_id, Country.order(:name), id: :name, include_blank:true %>
+	</div>
+
+
+<% end %>

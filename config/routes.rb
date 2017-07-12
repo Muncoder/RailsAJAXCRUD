@@ -24,4 +24,6 @@ Rails.application.routes.draw do
 
   resources :charges, only: [:create]
 
+  resources :presidents
+
 end
