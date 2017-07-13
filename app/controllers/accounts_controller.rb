@@ -1,5 +1,6 @@
 class AccountsController < ApplicationController
   before_action :set_account, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :json
 
   def index
     @accounts = Account.all
@@ -24,6 +25,7 @@ class AccountsController < ApplicationController
     @accounts = Account.all
     @account = Account.find(params[:id])
     @account.update_attributes(account_params)
+    respond_with @account
   end
 
   def delete

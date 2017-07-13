@@ -18,6 +18,7 @@ $(document).on('turbolinks:load', function(){
 //     }
 //   });
 
+
 	states = $('#president_state_id').html();
 	$('#president_country_id').change(function(){
 		country = $('#president_country_id :selected').text();
