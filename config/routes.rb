@@ -26,4 +26,7 @@ Rails.application.routes.draw do
 
   resources :presidents
 
+  resources :students
+
+
 end

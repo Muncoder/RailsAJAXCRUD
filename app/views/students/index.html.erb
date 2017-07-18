@@ -1,0 +1,20 @@
+<div class="container">
+	<h1>Students</h1>
+	<hr>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Age</th>
+			</tr>
+		</thead>
+		<tbody class='student-index'>
+			<%= render "index" %>
+		</tbody>
+	</table>
+	
+	<%= link_to 'New Student', new_student_path, remote: true, class: "btn btn-default" %>
+</div>
+
+<div id="new_student" class="modal fade"></div>
+<div id="edit_student" class="modal fade"></div>

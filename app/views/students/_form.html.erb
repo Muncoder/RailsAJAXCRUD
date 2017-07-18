@@ -1,0 +1,15 @@
+        <%= form_for @student, remote: true do |f| %>
+          <% if params[:edit_status] == 'name' || params[:action] == 'new' %>
+            <div class="form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
+          <% end %>  
+          <% if params[:edit_status] == 'age' || params[:action] == 'new' %>
+            <div class="form-group">
+              <%= f.label :age %>
+              <%= f.text_field :age, class: "form-control" %>
+            </div>
+          <% end %>
+          <%= f.submit 'Create Student', class: "btn btn-default" %>
+        <% end %>
