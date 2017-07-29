@@ -17,6 +17,8 @@ gem 'jquery-ui-rails'
 gem 'best_in_place'
 gem 'responders'
 
+gem 'devise'
+
 group :development, :test do
   gem 'byebug'
   gem 'pry'
