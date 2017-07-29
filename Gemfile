@@ -18,6 +18,7 @@ gem 'best_in_place'
 gem 'responders'
 
 gem 'devise'
+gem 'toastr-rails'
 
 group :development, :test do
   gem 'byebug'
