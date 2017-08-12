@@ -1,0 +1,57 @@
+class ActivitiesController < ApplicationController
+
+
+  def index
+    search_activities
+    @shown_count = @activities.size
+    @page_info.active_crumb ="Browse Activities"
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
+  private
+
+  def search_activities
+
+    @keyword = ""
+
+    if params[:keyword] && params[:keyword] !=""
+      @keyword = params[:keyword]
+    end
+
+    @age_group_id = params[:age_group_id].to_i if params[:age_group_id].to_i != 0
+    @age_group_id ||= AgeGroup.all.map{|i| i.id}
+
+    @county_id = params[:county][:county_id].to_i if (params[:county] && params[:county][:county_id].to_i != 0)
+    @county_id ||= County.all.map{|i| i.id}
+
+    @town_id = params[:town][:town_id].to_i if (params[:town] && params[:town][:town_id].to_i != 0)
+    @town_id ||= Town.all.map{|i| i.id}
+
+    @category_id = params[:category][:category_id].to_i if (params[:category] && params[:category][:category_id].to_i != 0)
+    @category_id ||= Category.all.map{|i| i.id}
+
+    @price_range_id = params[:price_range_id].to_i if params[:price_range_id].to_i != 0
+    if @price_range_id != nil
+      price_range = PriceRange.find(@price_range_id)
+      min_price = price_range.min_price_cents
+      max_price = price_range.max_price_cents
+    else
+      min_price = 0
+      max_price = nil
+    end  
+
+    @activities = Activity.
+      joins(:activity_categories).
+      where(:activity_categories => {category_id: @category_id}).
+      where("activities.age_group_id in (?)", @age_group_id).
+      where("activities.county_id in (?)", @county_id).
+      where("activities.town_id in (?)", @town_id).
+      where("activities.name ILIKE (?) OR activities.title ILIKE (?) OR activities.description ILIKE (?)", "%#{@keyword}%", "%#{@keyword}%", "%#{@keyword}%").
+      price_between(min_price, max_price).
+      uniq.
+      page params[:page]
+  end
+end

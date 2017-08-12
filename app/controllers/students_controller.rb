@@ -11,6 +11,7 @@ class StudentsController < ApplicationController
 
   def create
     @students = Student.all
+    flash[:notice] = "Student created successfully!"
     @student = Student.create(student_params)
   end
 

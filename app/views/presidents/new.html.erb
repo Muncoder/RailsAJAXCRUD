@@ -7,14 +7,64 @@
 			<%= f.label :name %>
 			<%= f.text_field :name, class: "form-control" %>
 		</div>
-		<div class="form-group">
-			<%= f.label :country_id %>
-			<%= f.collection_select :country_id, Country.order(:name), :id, :name, include_blank: true, class: "form-control" %>
+
+		<div class="panel panel-default well" style="background-color: cyan">
+			<div class="panel-header">
+				<h2>By AJAX call</h2>				
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<%= f.label :country_id %>
+					<%= f.collection_select :country_id, Country.order(:name), :id, :name, include_blank: true, class: "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= f.label :state_id %>
+					<%= f.collection_select :state_id, State.all, :id, :name, include_blank: true, class: "form-control" %>
+				</div>
+			</div>
 		</div>
-		<div class="form-group">
-			<%= f.label :state_id, "State or Province" %>
-			<%= f.grouped_collection_select :state_id, Country.order(:name), :states, :name, :id, :name, include_blank: true %>
+
+		<div class="panel panel-default well">
+			<div class="panel-header">
+				<h2>By Janascript</h2>				
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<%= f.label :country_id %>
+					<%= f.collection_select :country_id, Country.order(:name), :id, :name, include_blank: true, class: "form-control" %>
+				</div>
+				<div class="form-group">
+					<%= f.label :state_id, "State or Province" %>
+					<%= f.grouped_collection_select :state_id, Country.order(:name), :states, :name, :id, :name, include_blank: true %>
+				</div>
+			</div>
 		</div>
 
 	<% end %>	
 </div>
+
+
+
+<script>
+	$(document).ready(function(){
+		$('#president_country_id').change(function(){
+			country_id = $('#president_country_id :selected').val();
+			updateStates(country_id)
+		});
+
+		function updateStates(country_id){
+			return $.ajax({
+				url: '/update_states',
+				type: 'GET',
+				dataType: 'script',
+				cache: false,
+				data: {
+					country_id: country_id
+				},
+				success: function(data) {
+					// alert("success");
+				}
+			});
+		}
+	});
+</script>

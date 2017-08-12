@@ -1,0 +1,15 @@
+<div class="container">
+	<h1>New President</h1>
+
+	<%= form_tag root_path do %>
+		
+		<div class="form-group">
+			<%= collection_select :country, :id, Country.order(:name), :id, :name, class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<% @country = Country.all %>
+			<%= grouped_collection_select(:state, :id, Country.order(:name), :countries, :name, :id, :name) %>
+		</div>
+
+	<% end %>	
+</div>

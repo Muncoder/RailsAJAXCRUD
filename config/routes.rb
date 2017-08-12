@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
 
+  get 'new_country' => 'presidents#new_country'
+  get 'update_states' => 'presidents#update_states'
+
+  get 'villages/index'
+
+  get 'villages/new'
+
+  get 'villages/create'
+
   devise_for :users
   resources :starships
   root 'employees#index'
@@ -31,5 +40,6 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:index]
 
+  resources :villages, only: [:index, :new, :create ]
 
 end
